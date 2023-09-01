@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+// import Main from './pages/Main'
+import {Suspense,lazy} from 'react'
+import { Route,RouterProvider,createBrowserRouter,createRoutesFromElements, Navigate} from 'react-router-dom'
+import { routes } from "./routes/routes";
+import SuspenseLoader from './common/SuspenseLoader';
+const ErrorComponent = lazy(()=>import('./Components/ErrorComponent'))
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+
+      <Route path = {routes.main.path} element = {<Navigate to = {`${routes.emails.path}/inbox`}/>}/>
+      <Route path = {routes.main.path} element = {<routes.main.element/>}>
+          <Route path = {`${routes.emails.path}/:type`}  element = {<routes.emails.element/>} errorElement = {<ErrorComponent/>}/>
+          <Route path = {routes.view.path}  element = {<routes.view.element/>} errorElement = {<ErrorComponent/>}/>
+      </Route>
+
+
+      <Route path = {routes.invalid.path} element = {<Navigate to = {`${routes.emails.path}/inbox`}/>}/>
+    
+    </Route>
+  )
+)
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Suspense fallback={<SuspenseLoader/>}>
+     <RouterProvider router = {router}/> 
+     </Suspense>
+   
+   ); 
 }
 
-export default App;
+export default App
