@@ -20,7 +20,10 @@
   
 
 
-const API_URL = 'http://localhost:9000';
+// const API_URL = 'http://localhost:9000';
+
+const API_URL = 'https://ggmailclone-be.onrender.com/'
+
 
 const API_GMAIL = async (urlObject,payload,type)=>{
     //console.log(urlObject.method) 
@@ -32,7 +35,10 @@ const API_GMAIL = async (urlObject,payload,type)=>{
 
         // url:`${API_URL}/${urlObject.endpoint}/${type}`,
         method :urlObject.method ,
-        url:`http://localhost:9000/${urlObject.endpoint}/${type}`,
+        // url:`http://localhost:9000/${urlObject.endpoint}/${type}`,
+        url:`https://ggmailclone-be.onrender.com/${urlObject.endpoint}/${type}`,
+
+
        
         // // in  url we  have to backend ka url
         
